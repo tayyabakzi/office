@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% extends "employeeProfile.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change Schedule</title>
+</head>
+<body>
+{% block content %}
+<div class="container">
+  <div class="title">Change Schedule</div>
+  <form method="post">
+  {% csrf_token %}  
+    <div class="user__details">
+      <div class="input__box">
+        <span class="details">Date to change</span>
+        <input type="date" placeholder="Date" name="date" required>
+      </div>
+      <div class="input__box">
+        <span class="details">Reason</span>
+        <input type="text" placeholder="Reason" name="reason" required>
+      </div>
+      <div class="button">
+      <input type="submit" value="Submit">Submit</input>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}
+</body>
+</html>
+    

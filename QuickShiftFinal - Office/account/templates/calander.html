@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% extends "hrProfile.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calander</title>
+
+</head>
+<body>
+{% block content %}
+<center>
+    <div class="user__details">
+      <div class="input__box">
+        <span class="details">Select Employee</span>
+        <select name="employee">
+            <option disabled selected>Select Employee</option>
+            {% for employee in employees %}
+            <option value="{{employee.id}}">{{employee.first_name}} {{employee.last_name}}</option>
+            {% endfor %}
+        </select>
+      </div>
+  </div>
+</center>
+<div class="calendar"></div>
+{% endblock %}
+</body>
+
+</html>

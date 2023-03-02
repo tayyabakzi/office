@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% extends "employeeProfile.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Schedule</title>
+</head>
+<body>
+{% block content %}
+<div id="timetable">
+    <!-- (A) FIRST ROW : TIME -->
+    <div class="cell head">&nbsp;</div>
+    <div class="cell head"></div>
+    <div class="cell head"></div>
+    <div class="cell head"></div>
+
+    <!-- (B) FOLLOWING ROWS : MON TO SUN -->
+    <div class="cell head">Mon</div>
+    <div class="cell">&nbsp;</div><div class="cell">&nbsp;</div><div class="cell">&nbsp;</div>
+    <div class="cell head">Tue</div>
+    <div class="cell">&nbsp;</div><div class="cell">&nbsp;</div><div class="cell">&nbsp;</div>
+    <div class="cell head">Wed</div>
+    <div class="cell">&nbsp;</div><div class="cell">&nbsp;</div><div class="cell">&nbsp;</div>
+    <div class="cell head">Thur</div>
+    <div class="cell">&nbsp;</div><div class="cell">&nbsp;</div><div class="cell">&nbsp;</div>
+    <div class="cell head">Fri</div>
+    <div class="cell">&nbsp;</div><div class="cell">&nbsp;</div><div class="cell">&nbsp;</div>
+    <div class="cell head">Sat</div>
+    <div class="cell">&nbsp;</div><div class="cell">&nbsp;</div><div class="cell">&nbsp;</div>
+    <div class="cell head">Sun</div>
+    <div class="cell">&nbsp;</div><div class="cell">&nbsp;</div><div class="cell">&nbsp;</div>
+
+    <!-- (C) TIME TABLE ENTRIES -->
+    <div class="cell entry" style="grid-column: 2 / 3; grid-row: 2; color: #fff; background: #2498ab;">
+        Work from home
+    </div>
+    <div class="cell entry" style="grid-column: 2 / 4; grid-row: 3; color: #fff; background: #ab2424;">
+        Work from home.
+    </div>
+    <div class="cell entry" style="grid-column: 3 / 5; grid-row: 4; color: #fff; background: #243bab;">
+        Onsite.
+    </div>
+    <div class="cell entry" style="grid-column: 2 / 3; grid-row: 5; color: #fff; background: #13a124;">
+        Onsite
+    </div>
+    <div class="cell entry" style="grid-column: 3 / 4; grid-row: 6; color: #fff; background: #91127b;">
+        Onsite
+    </div>
+
+</div>
+{% endblock %}
+</body>
+</html>

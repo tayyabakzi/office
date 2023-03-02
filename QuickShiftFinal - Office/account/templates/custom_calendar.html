@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% extends "hrProfile.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calender</title>
+
+</head>
+<body>
+{% block content %}
+    <div class="container">
+      {% load svg %}
+      <div class="card">
+        <table class="table " id="filters">
+          <thead >
+          <tr>
+            <th class="col-md-4">Department</th>
+            <th class="col-md-4">Team Number</th>
+            <th class="col-md-4">Employee</th>
+            <th><span style="float: right;"></span></th>
+          </tr>
+          </thead>
+          <tbody>
+            <form method="post" class="form-card" id="" >
+              {% csrf_token %}
+              <tr>
+                {% for field in filters.teamForm %}
+                  <td>
+                    {{ field }}
+                  </td>
+                {% endfor %}
+                <td>
+                      <span style="float: right;"><button type="submit" name="save" value="" >{% svg "save" %}</button>
+                        </span>
+                </td>
+              </tr>
+            </form>
+
+          </tbody>
+        </table>
+      </div>
+    <div class="card">
+    <center>
+        {{ calendar }}
+    </center>
+    </div>
+    </div>
+    </body>
+{% endblock %}
+</body>
+
+</html>

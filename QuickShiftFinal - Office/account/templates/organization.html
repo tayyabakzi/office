@@ -1,0 +1,170 @@
+{% extends "hrProfile.html" %}
+
+
+{% block content %}
+    {% load svg %}
+    <div class="container">
+        <div class="title">Organization Details</div>
+        <div class="card">
+            <table class="table " id="departments">
+                <thead >
+                <tr>
+                    <th>Department ID</th>
+                    <th>Department Name</th>
+                    <th>  <span style="float: right;"><a onclick="showAddForm('departFormDiv')"> {% svg "addnew" %}</a></span></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for dept in allDept.depts %}
+                  <form method="POST" id="savedRecordForm">
+                    {% csrf_token %}
+                    <tr>
+                        <td>{{dept.departmentID}}</td>
+                        <td>{{dept.departmentName}} </td>
+                        <td>
+                          <span style="float: right;"><button type="button" onclick="showEditRow({{dept.id}})" name="edit_dept"> {% svg "edit" %}</button>
+                                <button type="submit"   name="delete_dept">{% svg "delete" %}</button></span>
+
+                        </td>
+                    </tr>
+
+                    <tr  style="display: none;" id="departFormDivAdd_{{dept.id}}">
+
+                      <input type="hidden" name="id" value="{{ dept.id }}">
+                      <td><input type="text" class="form-control" name="departmentID" value="{{ dept.departmentID }}"></td>
+                      <td><input type="text" class="form-control" name="departmentName" value="{{ dept.departmentName }}"></td>
+                      <td>
+                          <span style="float: right;"><button type="submit"  name="edit_dept"> {% svg "edit" %}</button>
+                            <button type="button" onclick="hideAddForm('departFormDivAdd')"  name="cancel" value="" >{% svg "cancel" %}</button>
+                          </span>
+                      </td>
+                    </tr>
+                   </form>
+
+                {% endfor %}
+                <form method="post" class="form-card" id="deptFormView" >
+                    {% csrf_token %}
+                    <tr style="display: none;" id="departFormDiv">
+                        {% for field in allDept.deptForm %}
+                           <td>
+                                {{ field }}
+                            </td>
+                        {% endfor %}
+                    <td>
+                      <span style="float: right;"><button type="submit" name="save" value="" >{% svg "save" %}</button>
+                        <button type="button" onclick="hideAddForm('departFormDiv')"  name="cancel" value="" >{% svg "cancel" %}</button></span>
+                    </td>
+                    </tr>
+
+
+                </form>
+
+                </tbody>
+            </table>
+            </div>
+
+      <div class="card">
+        <h3>Add Team</h3>
+        <td class="container-fluid">
+          <table class="table " id="teams">
+            <thead >
+            <tr>
+              <th>Department</th>
+              <th>Team Number</th>
+              <th>Team Name</th>
+              <th>  <span style="float: right;"><a onclick="showAddForm('teamFormDiv')"> {% svg "addnew" %}</a></span></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for team in allTeamsDeptWise.teams %}
+              <tr>
+                <td>{{team.departmentID.departmentName}}</td>
+                <td>{{team.teamNumber}}</td>
+                <td>{{team.teamDescription}}</td>
+                <td>
+                  <form method="POST" action="{% url 'organization' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ team.id }}">
+                    <span style="float: right;"><button type="button"  name="edit_team"> {% svg "edit" %}</button>
+                                <button type="submit"   name="delete_team">{% svg "delete" %}</button></span>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+            <form method="post" class="form-card" id="teamFormView" >
+              {% csrf_token %}
+              <tr id="teamFormDiv">
+                {% for field in allTeamsDeptWise.teamForm %}
+                  <td>
+                    {{ field }}
+                  </td>
+                {% endfor %}
+                <td>
+                      <span style="float: right;"><button type="submit" name="save" value="" >{% svg "save" %}</button>
+                        <button type="button" onclick="hideAddForm('teamFormDiv')"  name="cancel" value="" >{% svg "cancel" %}</button></span>
+                </td>
+              </tr>
+
+
+            </form>
+
+            </tbody>
+          </table>
+      </div>
+
+        <div class="card" id="departFormDiv" style="display: none">
+            {% if messages %}
+                {% for message in messages %}
+                    <div {% if message.tags %} class="alert-box {{ message.tags }}" {% endif %}>{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+    </div>
+       {% comment %}
+          <h2>Employee Details</h2>
+       <div class="card" style="font-size: medium">
+
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Employee ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Department</th>
+                    <th>Team</th>
+                    <th>Manager Name</th>
+                    <th>Manager ID</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for employee in allEmployee.employees %}
+                    <tr>
+                        <td>{{ employee.Emp_Id }}</td>
+                        <td>{{ employee.Name }}</td>
+                        <td>{{ employee.Scheduling }}</td>
+                        <td>{{ employee.Department }}</td>
+                        <td>{{ employee.Team }}</td>
+                        <td>{{ employee.Manager_Name }}</td>
+                        <td>{{ employee.Manager_Id }}</td>
+                        <td>{{ employee.Email }}</td>
+                        <td>
+                            <form method="POST" action="{% url 'organization' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="id" value="{{ employee.id }}">
+                                <button type="submit"  name="edit_employee"> {% svg "edit" %}</button>
+                                <button type="submit"   name="delete_employee">{% svg "delete" %}</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="9">No employees found.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>{% endcomment %}
+{% endblock %}

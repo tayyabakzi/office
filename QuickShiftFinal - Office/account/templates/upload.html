@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% extends "hrProfile.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="title">Scheduler</div>
+  <div class="card">
+      <form method="POST" action="{% url 'upload' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="user__details">
+              <div class="form-group">
+                  <label for="uploadInput">Upload File</label>
+                  <input type="file" class="form-control-file" name="file" accept=".xlsx" id="uploadInput" required>
+              </div>
+          </div>
+          <div class="button">
+              {% comment %}<button type="submit"  class="btn btn-success" style="background-color: #4CAF50; color: white; font-size: 16px; padding: 8px 16px;">Upload</button>{% endcomment %}
+              <button name="button" class="btn btn-success" type="submit"> Run Model</button>
+          </div>
+
+      </form>
+      {% if messages %}
+          {% for message in messages %}
+              <div {% if message.tags %} class="alert-box {{ message.tags }}" {% endif %}>{{ message }}</div>
+          {% endfor %}
+      {% endif %}
+      {% comment %}{% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+                  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+          </ul>
+      {% endif %}{% endcomment %}
+  </div>
+
+
+    <h1>{{name}}</h1>
+    <table class="table table-light table-striped">
+        <thead>
+        <tr>
+            <th>Team Number</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- jinja2 Technique -->
+        {% if d %}
+            {% for i in d %}
+                <tr>
+                    <td>{{i.Team_Number}}</td>
+                    <td>{{i.Monday}}</td>
+                    <td>{{i.Tuesday}}</td>
+                    <td>{{i.Wednesday}}</td>
+                    <td>{{i.Thursday}}</td>
+                    <td>{{i.Friday}}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+
+    {{total_employees_per_day}}
+ {% comment %}   <form action="%url'employeeDetails'%" method="post" enctype="multipart/form-data">
+      <h2>Select file to upload:</h2>
+      <input type="file" name="fileToUpload" id="fileToUpload">
+      <input type="submit" value="Upload" name="submit">
+    </form>{% endcomment %}
+{% endblock %}

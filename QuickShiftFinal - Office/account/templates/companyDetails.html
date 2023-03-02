@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% extends "hrProfile.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Details</title>
+
+</head>
+<body>
+{% block content %}
+<div class="container">
+  <div class="title">Enter Company Details</div>
+  <form method="post">
+    {% csrf_token %}
+    <div class="user__details">
+      <div class="input__box">
+        <span class="details">Company ID</span>
+        <input type="text" placeholder="Company ID" name="company_id" required>
+      </div>
+      <div class="input__box">
+        <span class="details">Company Name</span>
+        <input type="text" placeholder="Company name" name="company_name" required>
+      </div>
+      <div class="input__box">
+        <span class="details">Address</span>
+        <input type="text" placeholder="Address" name="address" required>
+      </div>
+      <div class="input__box">
+        <span class="details">Contact Number</span>
+        <input type="text" placeholder="Contact Number" name="Contact_number" required>
+      </div>
+    </div>
+    <div class="button">
+      <input type="submit" value="Submit">
+    </div>
+  </form>
+</div>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+{% extends "hrProfile.html" %}
+
+
+{% block content %}
+    <div class="container">
+    <div class="title">Employee Details</div>
+    <div class="card">
+      <h4> Add Employee </h4>
+      <table class="table">
+        <thead hidden>
+        <tr>
+          <th class="col-md-4"></th>
+          <th class="col-md-4"></th>
+          <th class="col-md-4"></th>
+          <th class="col-md-4"></th>
+        </tr>
+        </thead>
+        <form class="form-card" method="POST" action="{% url 'employeeDetails' %}">
+          {% csrf_token %}
+       <tbody>
+          {% for field in form %}
+            <tr>
+
+              <td><label class="form-control-label px-3">{{ field.label }}</label></td>
+              <td>{{ field }}</td>
+
+            </tr>
+          {% endfor %}
+
+         {% comment %}   <div class="row justify-content-between text-left">
+                <div class="form-group col-sm-4 flex-column d-flex">
+                    <label for="Emp_Id" class="form-control-label px-3">Employee Id<span class="text-danger"> *</span></label>
+                    <input type="text" id="Emp_Id" name="Emp_Id" placeholder="">
+                </div>
+            </div>
+
+            <div class="row justify-content-between text-left">
+                <div class="form-group col-sm-6 flex-column d-flex">
+                    <label for="Name" class="form-control-label px-3">Name<span class="text-danger"> *</span></label>
+                    <input type="text" id="Name" name="Name" placeholder="">
+                </div>
+                <div class="form-group col-sm-6 flex-column d-flex">
+                    <label for="Email" class="form-control-label px-3">Email<span class="text-danger"> *</span></label>
+                    <input type="text" id="Email" name="Email" placeholder="" >
+                </div>
+            </div>
+
+            <div class="row justify-content-between text-left">
+                <div class="form-group col-sm-6 flex-column d-flex">
+                    <label for="Team" class="form-control-label px-3">Team<span class="text-danger"> *</span></label>
+                    <input type="text" id="Team" name="Team" placeholder="">
+                </div>
+                <div class="form-group col-sm-6 flex-column d-flex">
+                    <label for="Department" class="form-control-label px-3">Department<span class="text-danger"> *</span></label>
+                    <input type="text" id="Department" name="Department" placeholder="" >
+                </div>
+            </div>
+
+            <div class="row justify-content-between text-left">
+                <div class="form-group col-sm-6 flex-column d-flex">
+                    <label for="Manager_Id" class="form-control-label px-3">Manager Id<span class="text-danger"> *</span></label>
+                    <input type="text" id="Manager_Id" name="Manager_Id" placeholder="">
+                </div>
+                <div class="form-group col-sm-6 flex-column d-flex">
+                    <label for="Manager_Name" class="form-control-label px-3">Manager Name<span class="text-danger"> *</span></label>
+                    <input type="text" id="Manager_Name" name="Manager_Name" placeholder="" >
+                </div>
+            </div>
+
+            <div class="row justify-content-between text-left">
+                <div class="form-group col-sm-6 flex-column d-flex">
+                    <label for="Scheduling" class="form-control-label px-3">Scheduling<span class="text-danger"> *</span></label>
+                    <input type="text" id="Scheduling" name="Scheduling" placeholder="">
+                </div>
+            </div>{% endcomment %}
+          <tr><td></td><td><span style="float: right"><button type="submit" class="btn btn-success" style="background-color: #4CAF50; color: white; font-size: 16px; padding: 8px 16px;">Add</button></span></td></tr>
+       </tbody>
+        </form>
+      </table>
+    </div>
+  {% comment %}  <div>
+    {% load icon %}
+                {% svg "green" %}
+    </div>{% endcomment %}
+
+    <div class="card">
+        <h2>Upload CSV</h2>
+        <form method="POST" action="{% url 'employeeDetails' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="user__details">
+                <div class="form-group">
+                    <label for="uploadCSV">Upload CSV</label>
+                    <input type="file" class="form-control-file" name="file" accept=".csv" id="uploadCSV" required>
+                </div>
+            </div>
+            <div class="button">
+                <button type="submit"  class="btn btn-success" style="background-color: #4CAF50; color: white; font-size: 16px; padding: 8px 16px;">Upload</button>
+            </div>
+{#            <button name="button" type="submit"> Run Model</button>#}
+        </form>
+
+        {% comment %}{% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}{% endcomment %}
+    </div>
+
+
+    <div class="card">
+    <h2>Employee List</h2>
+    <table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Department</th>
+        <th>Team</th>
+        <th>Manager Id</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for employee in prompt.employees %}
+        <tr>
+            <td>{{ employee.Emp_Id }}</td>
+            <td>{{ employee.first_name }}</td>
+            <td>{{ employee.last_name }}</td>
+            <td>{{ employee.department.departmentName }}</td>
+            <td>{{ employee.team.teamNumber }}</td>
+            <td>{{ employee.Manager_Id }}</td>
+        </tr>
+    {% endfor %}
+
+</tbody>
+</table>
+</div>
+{% endblock %}
